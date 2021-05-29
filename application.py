@@ -6,4 +6,4 @@ app = application
 
 @application.route('/')
 def hello_world():
-    return 'Sup. Subscribe'
+    return 'Hi, its my Alice Prog:)'
