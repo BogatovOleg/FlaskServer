@@ -3,8 +3,8 @@ import logging
 import json
 import boto3
 
-
-
+sqs = boto3.resource('sqs')
+queue = sqs.get_queue_by_name(QueueName='BrasQueueA.fifo')
 
 application = Flask(__name__)
 app = application
@@ -14,10 +14,6 @@ logging.basicConfig(level=logging.DEBUG)
 
 @application.route("/", methods=["POST"])
 def main():
-
-    sqs = boto3.resource('sqs')
-    queue = sqs.get_queue_by_name(QueueName='BrasQueueA.fifo')
-
     logging.info(request.json)
 
     response = {
