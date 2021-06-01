@@ -3,7 +3,8 @@ import logging
 import json
 import boto3
 
-name_func = ''
+
+
 
 
 def sqs_func(name):
@@ -13,7 +14,6 @@ def sqs_func(name):
 
 
 application = Flask(__name__)
-app = application
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -22,6 +22,8 @@ sessionStorage = {}
 
 @application.route("/", methods=["POST"])
 def main():
+    global name_f
+
     logging.info('Request: %r', request.json)
 
     response = {
@@ -52,7 +54,7 @@ def main():
 
         elif req["request"]["original_utterance"].lower() in ["выше"]:
             response["response"]["text"] = "func_up_normal"
-            name_func = 'func_up_normal'
+            name_f = 'func_up_normal'
 
         elif req["request"]["original_utterance"].lower() in ["ниже"]:
             response["response"]["text"] = "func_down_normal"
@@ -74,4 +76,5 @@ def main():
 
     return json.dumps(response)
 
-    sqs_func(name_func)
+
+sqs_func(name_f)
