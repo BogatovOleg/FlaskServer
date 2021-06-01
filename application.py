@@ -38,48 +38,30 @@ def main():
         elif req["request"]["original_utterance"].lower() in ["в начало страницы", "начало", "в самое начало",
                                                               "наверх"]:
             response["response"]["text"] = "func_up_full"
-            response_sqs = sqs.send_message(QueueUrl=queue_url,
-                                            DelaySeconds=10, MessageBody=response["response"]["text"])
 
         elif req["request"]["original_utterance"].lower() in ["в самый низ", "конец", "в самый конец",
                                                               "вниз"]:
             response["response"]["text"] = "func_down_full"
-            response_sqs = sqs.send_message(QueueUrl=queue_url,
-                                            DelaySeconds=10, MessageBody=response["response"]["text"])
 
         elif req["request"]["original_utterance"].lower() in ["выше"]:
             response["response"]["text"] = "func_up_normal"
-            response_sqs = sqs.send_message(QueueUrl=queue_url,
-                                            DelaySeconds=10, MessageBody=response["response"]["text"])
 
         elif req["request"]["original_utterance"].lower() in ["ниже"]:
             response["response"]["text"] = "func_down_normal"
-            response_sqs = sqs.send_message(QueueUrl=queue_url,
-                                            DelaySeconds=10, MessageBody=response["response"]["text"])
 
         elif req["request"]["original_utterance"].lower() in ["чуть выше", "немного выше"]:
             response["response"]["text"] = "func_up_abit"
-            response_sqs = sqs.send_message(QueueUrl=queue_url,
-                                            DelaySeconds=10, MessageBody=response["response"]["text"])
 
         elif req["request"]["original_utterance"].lower() in ["чуть ниже", "немного ниже"]:
             response["response"]["text"] = "func_down_abit"
-            response_sqs = sqs.send_message(QueueUrl=queue_url,
-                                            DelaySeconds=10, MessageBody=response["response"]["text"])
 
         elif req["request"]["original_utterance"].lower() in ["закрыть браузер"]:
             response["response"]["text"] = "func_exit"
-            response_sqs = sqs.send_message(QueueUrl=queue_url,
-                                            DelaySeconds=10, MessageBody=response["response"]["text"])
 
         elif req["request"]["original_utterance"].lower() in ["вперед"]:
             response["response"]["text"] = "func_forward"
-            response_sqs = sqs.send_message(QueueUrl=queue_url,
-                                            DelaySeconds=10, MessageBody=response["response"]["text"])
 
         elif req["request"]["original_utterance"].lower() in ["назад"]:
             response["response"]["text"] = "func_back"
-            response_sqs = sqs.send_message(QueueUrl=queue_url,
-                                            DelaySeconds=10, MessageBody=response["response"]["text"])
 
     return json.dumps(response)
