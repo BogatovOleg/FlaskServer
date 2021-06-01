@@ -4,9 +4,6 @@ import json
 import boto3
 
 
-
-
-
 def sqs_func(name):
     sqs = boto3.resource('sqs')
     queue = sqs.get_queue_by_name(QueueName='BrasQueueA.fifo')
@@ -19,11 +16,9 @@ logging.basicConfig(level=logging.DEBUG)
 
 sessionStorage = {}
 
-
+name = ''
 @application.route("/", methods=["POST"])
 def main():
-    global name_f
-
     logging.info('Request: %r', request.json)
 
     response = {
@@ -54,10 +49,11 @@ def main():
 
         elif req["request"]["original_utterance"].lower() in ["выше"]:
             response["response"]["text"] = "func_up_normal"
-            name_f = 'func_up_normal'
+            sqs_func('func_up_normal')
 
         elif req["request"]["original_utterance"].lower() in ["ниже"]:
             response["response"]["text"] = "func_down_normal"
+            name.this = 'func_down_normal'
 
         elif req["request"]["original_utterance"].lower() in ["чуть выше", "немного выше"]:
             response["response"]["text"] = "func_up_abit"
@@ -75,6 +71,3 @@ def main():
             response["response"]["text"] = "func_back"
 
     return json.dumps(response)
-
-
-sqs_func(name_f)
