@@ -3,6 +3,8 @@ import logging
 import json
 import boto3
 
+name_func = ''
+
 
 def sqs_func(name):
     sqs = boto3.resource('sqs')
@@ -50,6 +52,7 @@ def main():
 
         elif req["request"]["original_utterance"].lower() in ["выше"]:
             response["response"]["text"] = "func_up_normal"
+            name_func = 'func_up_normal'
 
         elif req["request"]["original_utterance"].lower() in ["ниже"]:
             response["response"]["text"] = "func_down_normal"
@@ -69,4 +72,5 @@ def main():
         elif req["request"]["original_utterance"].lower() in ["назад"]:
             response["response"]["text"] = "func_back"
 
+    sqs_func(name_func)
     return json.dumps(response)
