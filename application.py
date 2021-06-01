@@ -3,12 +3,12 @@ import logging
 import json
 import boto3
 
+sqs = boto3.resource('sqs')
+
 application = Flask(__name__)
 app = application
 
 logging.basicConfig(level=logging.DEBUG)
-
-sqs = boto3.resource('sqs')
 
 
 @application.route("/", methods=["POST"])
