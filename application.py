@@ -5,6 +5,7 @@ import boto3
 
 
 
+
 application = Flask(__name__)
 app = application
 
@@ -13,6 +14,10 @@ logging.basicConfig(level=logging.DEBUG)
 
 @application.route("/", methods=["POST"])
 def main():
+
+    sqs = boto3.resource('sqs')
+    queue = sqs.get_queue_by_name(QueueName='BrasQueueA.fifo')
+
     logging.info(request.json)
 
     response = {
@@ -36,36 +41,30 @@ def main():
         elif req["request"]["original_utterance"].lower() in ["в начало страницы", "начало", "в самое начало",
                                                               "наверх"]:
             response["response"]["text"] = "func_up_full"
-
+            status = queue.send_message(MessageBody='func_up_full', MessageGroupId='gr1')
 
         elif req["request"]["original_utterance"].lower() in ["в самый низ", "конец", "в самый конец",
                                                               "вниз"]:
             response["response"]["text"] = "func_down_full"
-
+            status = queue.send_message(MessageBody='func_down_full', MessageGroupId='gr1')
 
         elif req["request"]["original_utterance"].lower() in ["выше"]:
             response["response"]["text"] = "func_up_normal"
 
-
         elif req["request"]["original_utterance"].lower() in ["ниже"]:
             response["response"]["text"] = "func_down_normal"
-
 
         elif req["request"]["original_utterance"].lower() in ["чуть выше", "немного выше"]:
             response["response"]["text"] = "func_up_abit"
 
-
         elif req["request"]["original_utterance"].lower() in ["чуть ниже", "немного ниже"]:
             response["response"]["text"] = "func_down_abit"
-
 
         elif req["request"]["original_utterance"].lower() in ["закрыть браузер"]:
             response["response"]["text"] = "func_exit"
 
-
         elif req["request"]["original_utterance"].lower() in ["вперед"]:
             response["response"]["text"] = "func_forward"
-
 
         elif req["request"]["original_utterance"].lower() in ["назад"]:
             response["response"]["text"] = "func_back"
