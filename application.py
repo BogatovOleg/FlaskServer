@@ -3,7 +3,7 @@ import logging
 import json
 import boto3
 
-sqs = boto3.resource('sqs')
+
 
 application = Flask(__name__)
 app = application
