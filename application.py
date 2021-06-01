@@ -8,12 +8,12 @@ app = application
 
 logging.basicConfig(level=logging.DEBUG)
 
+sqs = boto3.resource('sqs')
+
 
 @application.route("/", methods=["POST"])
 def main():
     logging.info(request.json)
-
-    sqs = boto3.resource('sqs')
 
     response = {
         "version": request.json["version"],
