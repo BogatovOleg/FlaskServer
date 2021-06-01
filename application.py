@@ -1,6 +1,7 @@
 from flask import Flask, request
 import logging
 import json
+import boto3
 
 application = Flask(__name__)
 app = application
@@ -20,6 +21,10 @@ def main():
         }
     }
 
+    sqs = boto3.resource('sqs', aws_access_key_id='AKIATYQ65N6IQPDTBLDQ',
+                         aws_secret_access_key='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', region_name='eu-central-1')
+    queue_url = 'SQS_QUEUE_URL'
+
     req = request.json
     if req["session"]["new"]:
         response["response"][
@@ -34,29 +39,44 @@ def main():
                                                               "наверх"]:
             response["response"]["text"] = "func_up_full"
 
+
         elif req["request"]["original_utterance"].lower() in ["в самый низ", "конец", "в самый конец",
                                                               "вниз"]:
             response["response"]["text"] = "func_down_full"
 
+
         elif req["request"]["original_utterance"].lower() in ["выше"]:
             response["response"]["text"] = "func_up_normal"
 
+
         elif req["request"]["original_utterance"].lower() in ["ниже"]:
             response["response"]["text"] = "func_down_normal"
+            response_sqs = sqs.send_message(QueueUrl=queue_url,
+                                            DelaySeconds=10, MessageBody=response["response"]["text"])
 
         elif req["request"]["original_utterance"].lower() in ["чуть выше", "немного выше"]:
             response["response"]["text"] = "func_up_abit"
+            response_sqs = sqs.send_message(QueueUrl=queue_url,
+                                            DelaySeconds=10, MessageBody=response["response"]["text"])
 
         elif req["request"]["original_utterance"].lower() in ["чуть ниже", "немного ниже"]:
             response["response"]["text"] = "func_down_abit"
+            response_sqs = sqs.send_message(QueueUrl=queue_url,
+                                            DelaySeconds=10, MessageBody=response["response"]["text"])
 
         elif req["request"]["original_utterance"].lower() in ["закрыть браузер"]:
             response["response"]["text"] = "func_exit"
+            response_sqs = sqs.send_message(QueueUrl=queue_url,
+                                            DelaySeconds=10, MessageBody=response["response"]["text"])
 
         elif req["request"]["original_utterance"].lower() in ["вперед"]:
             response["response"]["text"] = "func_forward"
+            response_sqs = sqs.send_message(QueueUrl=queue_url,
+                                            DelaySeconds=10, MessageBody=response["response"]["text"])
 
         elif req["request"]["original_utterance"].lower() in ["назад"]:
             response["response"]["text"] = "func_back"
+            response_sqs = sqs.send_message(QueueUrl=queue_url,
+                                            DelaySeconds=10, MessageBody=response["response"]["text"])
 
     return json.dumps(response)
