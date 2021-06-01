@@ -1,7 +1,6 @@
 from flask import Flask, request
 import logging
 import json
-import boto3
 
 application = Flask(__name__)
 app = application
@@ -20,10 +19,6 @@ def main():
             "end_session": False
         }
     }
-
-    sqs = boto3.resource('sqs', aws_access_key_id='AKIATYQ65N6IQPDTBLDQ',
-                         aws_secret_access_key='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', region_name='eu-central-1')
-    queue_url = 'SQS_QUEUE_URL'
 
     req = request.json
     if req["session"]["new"]:
