@@ -34,13 +34,16 @@ def main():
         elif req["request"]["original_utterance"].lower() in ["в начало страницы", "начало", "в самое начало",
                                                               "наверх"]:
             response["response"]["text"] = "func_up_full"
+            sqs_func(response["response"]["text"])
 
         elif req["request"]["original_utterance"].lower() in ["в самый низ", "конец", "в самый конец",
                                                               "вниз"]:
             response["response"]["text"] = "func_down_full"
+            sqs_func(response["response"]["text"])
 
         elif req["request"]["original_utterance"].lower() in ["выше"]:
             response["response"]["text"] = "func_up_normal"
+            sqs_func(response["response"]["text"])
 
         elif req["request"]["original_utterance"].lower() in ["ниже"]:
             response["response"]["text"] = "func_down_normal"
