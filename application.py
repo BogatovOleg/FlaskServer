@@ -15,10 +15,12 @@ app = application
 
 logging.basicConfig(level=logging.DEBUG)
 
+sessionStorage = {}
+
 
 @application.route("/", methods=["POST"])
 def main():
-    logging.info(request.json)
+    logging.info('Request: %r', request.json)
 
     response = {
         "version": request.json["version"],
@@ -48,7 +50,6 @@ def main():
 
         elif req["request"]["original_utterance"].lower() in ["выше"]:
             response["response"]["text"] = "func_up_normal"
-            sqs_func('func_up_normal')
 
         elif req["request"]["original_utterance"].lower() in ["ниже"]:
             response["response"]["text"] = "func_down_normal"
