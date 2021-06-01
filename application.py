@@ -72,5 +72,6 @@ def main():
         elif req["request"]["original_utterance"].lower() in ["назад"]:
             response["response"]["text"] = "func_back"
 
-    sqs_func(name_func)
     return json.dumps(response)
+
+    sqs_func(name_func)
