@@ -2,21 +2,18 @@ from flask import Flask, request
 import logging
 import json
 import boto3
-import botocore
 
 application = Flask(__name__)
 app = application
 
 logging.basicConfig(level=logging.DEBUG)
 
-sqs = boto3.resource('sqs')
-
-print("dasda")
-
 
 @application.route("/", methods=["POST"])
 def main():
     logging.info(request.json)
+
+    sqs = boto3.resource('sqs')
 
     response = {
         "version": request.json["version"],
@@ -72,6 +69,5 @@ def main():
 
         elif req["request"]["original_utterance"].lower() in ["назад"]:
             response["response"]["text"] = "func_back"
-
 
     return json.dumps(response)
