@@ -8,7 +8,7 @@ queue = sqs.get_queue_by_name(QueueName='test')
 
 application = Flask(__name__)
 
-application.config.from_pyfile('settings.py')
+# application.config.from_pyfile('settings.py')
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -47,7 +47,7 @@ def main():
 
         elif req["request"]["original_utterance"].lower() in ["выше"]:
             response["response"]["text"] = "func_up_normal"
-            queue.send_message(MessageBody='func_up_normalll')
+            queue.send_message(MessageBody='func_up_normallly')
 
         elif req["request"]["original_utterance"].lower() in ["ниже"]:
             response["response"]["text"] = "func_down_normal"
