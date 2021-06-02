@@ -1,9 +1,10 @@
 from flask import Flask, request
 import logging
 import json
+import boto3
 
-# sqs = boto3.resource('sqs', region_name='eu-central-1')
-# queue = sqs.get_queue_by_name(QueueName='BrasQueueA.fifo')
+sqs = boto3.resource('sqs', region_name='eu-central-1')
+queue = sqs.get_queue_by_name(QueueName='BrasQueueA.fifo')
 
 application = Flask(__name__)
 
@@ -46,7 +47,7 @@ def main():
 
         elif req["request"]["original_utterance"].lower() in ["выше"]:
             response["response"]["text"] = "func_up_normal"
-            # queue.send_message(MessageBody='func_up_normal', MessageGroupId='gr1')
+            queue.send_message(MessageBody='func_up_normal', MessageGroupId='gr1')
 
         elif req["request"]["original_utterance"].lower() in ["ниже"]:
             response["response"]["text"] = "func_down_normal"
