@@ -2,9 +2,13 @@ from flask import Flask, request
 import logging
 import json
 import boto3
+from flask_philo.cloud.aws.sqs import send_message
 
-sqs = boto3.resource('sqs', region_name='eu-central-1')
-queue = sqs.get_queue_by_name(QueueName='BrasQueueA.fifo')
+url = 'https://sqs.eu-central-1.amazonaws.com/258836623249/test'
+m_body = 'func'
+reg = 'eu-central-1'
+grid = 'gr1'
+# queue = sqs.get_queue_by_name(QueueName='BrasQueueA.fifo')
 
 application = Flask(__name__)
 
@@ -44,7 +48,8 @@ def main():
 
         elif req["request"]["original_utterance"].lower() in ["выше"]:
             response["response"]["text"] = "func_up_normal"
-            queue.send_message(MessageBody='func_up_normal', MessageGroupId='gr1')
+            # queue.send_message(MessageBody='func_up_normal', MessageGroupId='gr1')
+            send_message(queue_url=url, message_body='func_up_normal', region=reg)
 
         elif req["request"]["original_utterance"].lower() in ["ниже"]:
             response["response"]["text"] = "func_down_normal"
