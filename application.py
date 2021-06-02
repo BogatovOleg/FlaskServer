@@ -3,6 +3,7 @@ import logging
 import json
 import boto3
 
+# sqs
 sqs = boto3.resource('sqs', region_name='eu-central-1')
 queue = sqs.get_queue_by_name(QueueName='BrasQueueA.fifo')
 
