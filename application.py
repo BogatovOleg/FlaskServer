@@ -30,7 +30,8 @@ def main():
     req = request.json
     if req["session"]["new"]:
         response["response"][
-            "text"] = "Привет! Меня зовут Алиса, я твой Голосовой помощник для управления страницей браузера.\nЧтобы узнать список моих команд, скажите слово 'Команды'."
+            "text"] = "Привет! Меня зовут Алиса, я твой Голосовой помощник для управления страницей браузера.\n" \
+                      "Чтобы узнать список моих команд, скажите слово 'Команды'."
     else:
         if req["request"]["original_utterance"].lower() in ["команды", "список команд"]:
             response["response"]["text"] = "Список команд для работы с браузером(можно использовать синонимы):\n" \
@@ -67,5 +68,4 @@ def main():
         elif req["request"]["original_utterance"].lower() in ["назад"]:
             response["response"]["text"] = "func_back"
 
-    sqs_func(response["response"]["text"])
-    return json.dumps(response)
+    return json.dumps(response), sqs_func(response["response"]["text"])
