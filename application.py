@@ -14,9 +14,7 @@ application = Flask(__name__)
 
 logging.basicConfig(level=logging.DEBUG)
 
-sessionStorage = {}
 
-name = ''
 @application.route("/", methods=["POST"])
 def main():
     logging.info('Request: %r', request.json)
@@ -69,4 +67,5 @@ def main():
         elif req["request"]["original_utterance"].lower() in ["назад"]:
             response["response"]["text"] = "func_back"
 
+    sqs_func(response["response"]["text"])
     return json.dumps(response)
