@@ -1,9 +1,6 @@
-from boto.sqs.message import Message
 from flask import Flask, request
 import logging
 import json
-import boto.sqs
-from flask_boto_sqs import FlaskBotoSQS
 
 # sqs = boto3.resource('sqs', region_name='eu-central-1')
 # queue = sqs.get_queue_by_name(QueueName='BrasQueueA.fifo')
