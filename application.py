@@ -2,6 +2,7 @@ from flask import Flask, request
 import logging
 import json
 import boto3
+from flask_philo.cloud.aws.sqs import send_message
 
 sqs = boto3.resource('sqs', region_name='eu-central-1')
 queue = sqs.get_queue_by_name(QueueName='BrasQueueA.fifo')
