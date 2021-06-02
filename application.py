@@ -2,10 +2,12 @@ from flask import Flask, request
 import logging
 import json
 import boto3
+import os
 
-sqs = boto3.resource('sqs', region_name='eu-central-1')
-# queue = sqs.get_queue_by_name(QueueName='test')
-queue = sqs.create_queue(QueueName='test23', Attributes={'DelaySeconds': '5'})
+sqs = boto3.resource('sqs', aws_access_key_id=os.environ['ACCESS_KEY'],
+                     aws_secret_access_key=os.environ['SECRET_KEY'], region_name='eu-central-1')
+queue = sqs.get_queue_by_name(QueueName='test')
+
 application = Flask(__name__)
 
 # application.config.from_pyfile('settings.py')
@@ -46,7 +48,7 @@ def main():
 
         elif req["request"]["original_utterance"].lower() in ["выше"]:
             response["response"]["text"] = "func_up_normal"
-            # queue.send_message(MessageBody='func_up_normallly')
+            queue.send_message(MessageBody='success')
 
         elif req["request"]["original_utterance"].lower() in ["ниже"]:
             response["response"]["text"] = "func_down_normal"
