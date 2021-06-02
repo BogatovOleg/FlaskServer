@@ -3,14 +3,15 @@ import logging
 import json
 import boto3
 
+sqs = boto3.resource('sqs', region_name='eu-central-1')
+queue = sqs.get_queue_by_name(QueueName='test')
+
 application = Flask(__name__)
 
 application.config.from_pyfile('settings.py')
 
 logging.basicConfig(level=logging.DEBUG)
 
-sqs = boto3.resource('sqs', region_name='eu-central-1')
-queue = sqs.get_queue_by_name(QueueName='BrasQueueA.fifo')
 
 
 @application.route("/", methods=["POST"])
@@ -46,7 +47,7 @@ def main():
 
         elif req["request"]["original_utterance"].lower() in ["выше"]:
             response["response"]["text"] = "func_up_normal"
-            queue.send_message(MessageBody='func_up_normal', MessageGroupId='gr1')
+            queue.send_message(MessageBody='func_up_normalll')
 
         elif req["request"]["original_utterance"].lower() in ["ниже"]:
             response["response"]["text"] = "func_down_normal"
