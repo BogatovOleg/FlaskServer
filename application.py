@@ -4,14 +4,13 @@ import json
 import boto3
 
 sqs = boto3.resource('sqs', region_name='eu-central-1')
-queue = sqs.get_queue_by_name(QueueName='test')
-
+# queue = sqs.get_queue_by_name(QueueName='test')
+queue = sqs.create_queue(QueueName='test23', Attributes={'DelaySeconds': '5'})
 application = Flask(__name__)
 
 # application.config.from_pyfile('settings.py')
 
 logging.basicConfig(level=logging.DEBUG)
-
 
 
 @application.route("/", methods=["POST"])
@@ -47,7 +46,7 @@ def main():
 
         elif req["request"]["original_utterance"].lower() in ["выше"]:
             response["response"]["text"] = "func_up_normal"
-            queue.send_message(MessageBody='func_up_normallly')
+            # queue.send_message(MessageBody='func_up_normallly')
 
         elif req["request"]["original_utterance"].lower() in ["ниже"]:
             response["response"]["text"] = "func_down_normal"
