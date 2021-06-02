@@ -2,10 +2,10 @@ from flask import Flask, request
 import logging
 import json
 import boto3
+from flask_boto_sqs import FlaskBotoSQS
 
-
-
-# queue = sqs.get_queue_by_name(QueueName='BrasQueueA.fifo')
+sqs = boto3.resource('sqs', region_name='eu-central-1')
+queue = sqs.get_queue_by_name(QueueName='BrasQueueA.fifo')
 
 application = Flask(__name__)
 
@@ -38,6 +38,7 @@ def main():
         elif req["request"]["original_utterance"].lower() in ["в начало страницы", "начало", "в самое начало",
                                                               "наверх"]:
             response["response"]["text"] = "func_up_full"
+            queue.send_message(MessageBody='func_up_full', MessageGroupId='gr1')
 
         elif req["request"]["original_utterance"].lower() in ["в самый низ", "конец", "в самый конец",
                                                               "вниз"]:
