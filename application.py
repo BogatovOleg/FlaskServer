@@ -43,35 +43,35 @@ def main():
 
         elif req["request"]["original_utterance"].lower() in ["в самый низ", "конец", "в самый конец",
                                                               "вниз"]:
-            response["response"]["text"] = ""
+            response["response"]["text"] = " "
             queue.send_message(MessageBody="func_down_full")
 
         elif req["request"]["original_utterance"].lower() in ["выше"]:
-            response["response"]["text"] = "func_up_normal"
-            queue.send_message(MessageBody=response["response"]["text"])
+            response["response"]["text"] = " "
+            queue.send_message(MessageBody="func_up_normal")
 
         elif req["request"]["original_utterance"].lower() in ["ниже"]:
-            response["response"]["text"] = "func_down_normal"
-            queue.send_message(MessageBody=response["response"]["text"])
+            response["response"]["text"] = " "
+            queue.send_message(MessageBody="func_down_normal")
 
         elif req["request"]["original_utterance"].lower() in ["чуть выше", "немного выше"]:
-            response["response"]["text"] = "func_up_abit"
-            queue.send_message(MessageBody=response["response"]["text"])
+            response["response"]["text"] = " "
+            queue.send_message(MessageBody="func_up_abit")
 
         elif req["request"]["original_utterance"].lower() in ["чуть ниже", "немного ниже"]:
-            response["response"]["text"] = "func_down_abit"
-            queue.send_message(MessageBody=response["response"]["text"])
+            response["response"]["text"] = " "
+            queue.send_message(MessageBody="func_down_abit")
 
         elif req["request"]["original_utterance"].lower() in ["закрыть браузер"]:
-            response["response"]["text"] = "func_exit"
-            queue.send_message(MessageBody=response["response"]["text"])
+            response["response"]["text"] = " "
+            queue.send_message(MessageBody="func_exit")
 
         elif req["request"]["original_utterance"].lower() in ["вперед"]:
-            response["response"]["text"] = "func_forward"
-            queue.send_message(MessageBody=response["response"]["text"])
+            response["response"]["text"] = " "
+            queue.send_message(MessageBody="func_forward")
 
         elif req["request"]["original_utterance"].lower() in ["назад"]:
-            response["response"]["text"] = "func_back"
-            queue.send_message(MessageBody=response["response"]["text"])
+            response["response"]["text"] = " "
+            queue.send_message(MessageBody="func_back")
 
     return json.dumps(response)
