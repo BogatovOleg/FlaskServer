@@ -6,11 +6,9 @@ import os
 
 sqs = boto3.resource('sqs', aws_access_key_id=os.environ['ACCESS_KEY'],
                      aws_secret_access_key=os.environ['SECRET_KEY'], region_name='eu-central-1')
-queue = sqs.get_queue_by_name(QueueName='test')
+queue = sqs.get_queue_by_name(QueueName='BrasQueueA.fifo')
 
 application = Flask(__name__)
-
-# application.config.from_pyfile('settings.py')
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -41,6 +39,7 @@ def main():
         elif req["request"]["original_utterance"].lower() in ["в начало страницы", "начало", "в самое начало",
                                                               "наверх"]:
             response["response"]["text"] = "func_up_full"
+            queue.send_message(MessageBody=response["response"]["text"], MessageGroupId='gr1')
 
         elif req["request"]["original_utterance"].lower() in ["в самый низ", "конец", "в самый конец",
                                                               "вниз"]:
@@ -48,7 +47,7 @@ def main():
 
         elif req["request"]["original_utterance"].lower() in ["выше"]:
             response["response"]["text"] = "func_up_normal"
-            queue.send_message(MessageBody='success')
+            queue.send_message(MessageBody='func_up_normal', MessageGroupId='gr1')
 
         elif req["request"]["original_utterance"].lower() in ["ниже"]:
             response["response"]["text"] = "func_down_normal"
