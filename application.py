@@ -36,21 +36,21 @@ def main():
                                            "Для навигации по странице: 1)Наверх 2)Выше 3)Чуть выше. По аналогии с перемещением вниз.\n" \
                                            "Для перехода между страницами: 1)Вперед 2)Назад.\n" \
                                            "Для закрытия браузера: 1)Закрыть браузер."
-        elif req["request"]["original_utterance"].lower() in ["в начало страницы", "начало", "в самое начало",
+        elif req["request"]["original_utterance"].lower() in ["в начало страницы", "начало страницы", "начало", "в самое начало",
                                                               "наверх"]:
             response["response"]["text"] = " "
             queue.send_message(MessageBody='func_up_full')
 
-        elif req["request"]["original_utterance"].lower() in ["в самый низ", "конец", "в самый конец",
-                                                              "вниз"]:
+        elif req["request"]["original_utterance"].lower() in ["в самый низ", "самый низ", "самый конец", "конец", "в самый конец",
+                                                              "вниз", "до конца вниз", "в конец страницы", "конец страницы"]:
             response["response"]["text"] = " "
             queue.send_message(MessageBody='func_down_full')
 
-        elif req["request"]["original_utterance"].lower() in ["выше"]:
+        elif req["request"]["original_utterance"].lower() in ["выше", "еще выше"]:
             response["response"]["text"] = " "
             queue.send_message(MessageBody='func_up_normal')
 
-        elif req["request"]["original_utterance"].lower() in ["ниже"]:
+        elif req["request"]["original_utterance"].lower() in ["ниже", "еще ниже"]:
             response["response"]["text"] = " "
             queue.send_message(MessageBody='func_down_normal')
 
