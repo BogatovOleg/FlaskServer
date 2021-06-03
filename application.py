@@ -74,4 +74,9 @@ def main():
             response["response"]["text"] = " "
             queue.send_message(MessageBody='func_back')
 
+        elif req["request"]["original_utterance"].lower() in ["перейти по ссылке", "ссылка"]:
+            response["response"]["text"] = "произнесите название ссылки"
+            queue.send_message(MessageBody='func_find_link')
+
+
     return json.dumps(response)
