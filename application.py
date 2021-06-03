@@ -38,13 +38,13 @@ def main():
                                            "Для закрытия браузера: 1)Закрыть браузер."
         elif req["request"]["original_utterance"].lower() in ["в начало страницы", "начало", "в самое начало",
                                                               "наверх"]:
-            response["response"]["text"] = "func_up_full"
-            queue.send_message(MessageBody=response["response"]["text"])
+            response["response"]["text"] = " "
+            queue.send_message(MessageBody='func_up_full')
 
         elif req["request"]["original_utterance"].lower() in ["в самый низ", "конец", "в самый конец",
                                                               "вниз"]:
-            response["response"]["text"] = "func_down_full"
-            queue.send_message(MessageBody=response["response"]["text"])
+            response["response"]["text"] = ""
+            queue.send_message(MessageBody="func_down_full")
 
         elif req["request"]["original_utterance"].lower() in ["выше"]:
             response["response"]["text"] = "func_up_normal"
