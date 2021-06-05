@@ -39,7 +39,7 @@ def main():
         elif req["request"]["original_utterance"].lower() in ["в начало страницы", "начало страницы", "начало",
                                                               "в самое начало",
                                                               "наверх"]:
-            response["response"]["text"] = "func_up_full"
+            response["response"]["text"] = " "
             queue.send_message(MessageBody='func_up_full')
 
         elif req["request"]["original_utterance"].lower() in ["в самый низ", "самый низ", "самый конец", "конец",
@@ -66,7 +66,7 @@ def main():
             queue.send_message(MessageBody='func_down_abit')
 
         elif req["request"]["original_utterance"].lower() in ["закрыть браузер"]:
-            response["response"]["text"] = "func_exit"
+            response["response"]["text"] = " "
             queue.send_message(MessageBody='func_exit')
 
         elif req["request"]["original_utterance"].lower() in ["вперед"]:
@@ -74,7 +74,7 @@ def main():
             queue.send_message(MessageBody='func_forward')
 
         elif req["request"]["original_utterance"].lower() in ["назад"]:
-            response["response"]["text"] = "func_back"
+            response["response"]["text"] = " "
             queue.send_message(MessageBody='func_back')
 
     return json.dumps(response)
